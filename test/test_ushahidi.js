@@ -247,4 +247,20 @@ describe('ushahidi_api', function() {
             "2. None of the above$"
             );
     });
+
+    it('should post a report to ushahidi', function() {
+        var user = {
+            current_state: "select_location",
+            answers: {
+                report_title: 'The title',
+                report_description: 'The description',
+                report_category: '1',
+                report_location: '1600 Amphitheatre Parkway'
+            }
+        };
+        tester.check_state(user, "1",
+            "submit_report",
+            "^Thank you, your report has been submitted"
+        );
+    });
 });
