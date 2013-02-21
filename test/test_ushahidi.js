@@ -144,12 +144,13 @@ function CustomTester(custom_setup, custom_teardown) {
 
 describe("test_ussd_states_for_session_1", function() {
     it("new users should see the report_title state", function () {
-        check_state(null, null, "report_title", "^What is the title");
+        check_state(null, null, "report_title",
+            "^Welcome to Ushahidi\nWhat is the report title");
     });
     it("reply 'title' to report_title should go to description", function() {
         check_state({current_state: "report_title"}, "the title",
             "report_description",
-            "^What is the description?"
+            "^What is the event description?"
         );
     });
     it("reply 'description' to report_description should go to category",
@@ -253,6 +254,7 @@ describe('ushahidi_api', function() {
         var user = {
             current_state: "select_location",
             answers: {
+                test_date: new Date(2013, 1, 21, 22, 40),
                 report_title: 'The title',
                 report_description: 'The description',
                 report_category: '1',
