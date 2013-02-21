@@ -143,11 +143,11 @@ function CustomTester(custom_setup, custom_teardown) {
 }
 
 describe("test_ussd_states_for_session_1", function() {
-    it("new users should see the intro state", function () {
-        check_state(null, null, "intro", "^What is the title");
+    it("new users should see the report_title state", function () {
+        check_state(null, null, "report_title", "^What is the title");
     });
     it("reply 'title' to report_title should go to description", function() {
-        check_state({current_state: "intro"}, "the title",
+        check_state({current_state: "report_title"}, "the title",
             "report_description",
             "^What is the description?"
         );
@@ -197,10 +197,54 @@ describe("test_ussd_states_for_session_1", function() {
         });
     it("reply '1' to select_location should submit the report",
         function() {
-            check_state({current_state: "select_location"}, "1",
+            var user = {
+                current_state: "select_location",
+                answers: {
+                    report_title: 'The title',
+                    report_description: 'The description',
+                    report_category: '1'
+                }
+            };
+            check_state(user, "1",
                 "submit_report",
                 "^Thank you, your report has been submitted"
             );
         });
 
+});
+
+describe('ushahidi_api', function() {
+    var fixtures = [
+        'test/fixtures/categories.json',
+        'test/fixtures/geolocation.json'
+    ];
+
+    var tester = new CustomTester(function (api) {
+        api.config_store.config = JSON.stringify({
+            ushahidi_api: {
+                ushahidi_url: "https://vumi.crowdmap.com/api",
+                geocode_url: 'http://maps.googleapis.com/maps/api/geocode/json'
+            }
+        });
+        fixtures.forEach(function (f) {
+            api.load_http_fixture(f);
+        });
+    });
+
+    it('should return a list of categories', function() {
+        tester.check_state({current_state: 'report_description'}, 'foo',
+            'report_category',
+            "^Select a category"
+            );
+    });
+
+    it('should return a list of location matches', function() {
+        tester.check_state({current_state: 'report_location'},
+            '1600 Amphitheatre Parkway',
+            'select_location',
+            "^Select a match:[^]" +
+            "1. 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA[^]" +
+            "2. None of the above$"
+            );
+    });
 });

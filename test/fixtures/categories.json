@@ -1,0 +1,58 @@
+{
+    "url": "https://vumi.crowdmap.com/api?task=categories",
+    "method": "GET",
+    "body": {
+        "payload": {
+            "domain": "https:\/\/vumi.crowdmap.com\/",
+            "categories": [{
+                "category": {
+                    "id": "1",
+                    "parent_id": "0",
+                    "title": "Category 1",
+                    "description": "Category 1",
+                    "color": "9900CC",
+                    "position": "0",
+                    "icon": ""
+                },
+                "translations": []
+            }, {
+                "category": {
+                    "id": "2",
+                    "parent_id": "0",
+                    "title": "Category 2",
+                    "description": "Category 2",
+                    "color": "3300FF",
+                    "position": "0",
+                    "icon": ""
+                },
+                "translations": []
+            }, {
+                "category": {
+                    "id": "3",
+                    "parent_id": "0",
+                    "title": "Category 3",
+                    "description": "Category 3",
+                    "color": "663300",
+                    "position": "0",
+                    "icon": ""
+                },
+                "translations": []
+            }, {
+                "category": {
+                    "id": "4",
+                    "parent_id": "0",
+                    "title": "Trusted Reports",
+                    "description": "Reports from trusted reporters",
+                    "color": "339900",
+                    "position": "0",
+                    "icon": ""
+                },
+                "translations": []
+            }]
+        },
+        "error": {
+            "code": "0",
+            "message": "No Error"
+        }
+    }
+}
