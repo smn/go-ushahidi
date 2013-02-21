@@ -163,11 +163,13 @@ describe("test_ussd_states_for_session_1", function() {
                 "4. Trusted Reports$"
            );
         });
-    it("reply 'address' to report_location should end the session",
+    it("reply 'address' to report_location should come with some suggestions",
         function() {
             check_state({current_state: "report_location"}, "the address",
-                "submit_report",
-                "^Thank you, your report has been submitted"
+                "select_location",
+                "^Select a match:[^]" +
+                "1. 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA[^]" +
+                "2. None of the above$"
             );
         });
 });
