@@ -1,0 +1,30 @@
+{
+  "name": "go-ushahidi",
+  "version": "0.0.1",
+  "description": "A Vumi Go USSD application for submitting reports to Ushahidi.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "vumigo_v01": "0.1.x"
+  },
+  "devDependencies": {
+    "mocha": "~1.7.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/smn/go-ushahidi"
+  },
+  "keywords": [
+    "vumi",
+    "ussd",
+    "ushahidi"
+  ],
+  "author": "Simon de Haan <simon@praekeltfoundation.org>",
+  "license": "BSD",
+  "readmeFilename": "README"
+}
