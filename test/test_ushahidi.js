@@ -216,7 +216,8 @@ describe("test_ussd_states_for_session_1", function() {
 describe('ushahidi_api', function() {
     var fixtures = [
         'test/fixtures/categories.json',
-        'test/fixtures/geolocation.json'
+        'test/fixtures/geolocation.json',
+        'test/fixtures/report.json'
     ];
 
     var tester = new CustomTester(function (api) {
