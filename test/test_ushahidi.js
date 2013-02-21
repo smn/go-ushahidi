@@ -163,6 +163,13 @@ describe("test_ussd_states_for_session_1", function() {
                 "4. Trusted Reports$"
            );
         });
+    it("reply '1' to report_category should go to address",
+        function() {
+            check_state({current_state: "report_category"}, "1",
+                "report_location",
+                "^Please type in the address"
+           );
+        });
     it("reply 'address' to report_location should come with some suggestions",
         function() {
             check_state({current_state: "report_location"}, "the address",
@@ -172,4 +179,28 @@ describe("test_ussd_states_for_session_1", function() {
                 "2. None of the above$"
             );
         });
+    it("reply 'address' to report_location should come with some suggestions",
+        function() {
+            check_state({current_state: "report_location"}, "the address",
+                "select_location",
+                "^Select a match:[^]" +
+                "1. 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA[^]" +
+                "2. None of the above$"
+            );
+        });
+    it("reply '2' to select_location should try again",
+        function() {
+            check_state({current_state: "select_location"}, "2",
+                "report_location",
+                "^Please type in the address"
+            );
+        });
+    it("reply '1' to select_location should submit the report",
+        function() {
+            check_state({current_state: "select_location"}, "1",
+                "submit_report",
+                "^Thank you, your report has been submitted"
+            );
+        });
+
 });
