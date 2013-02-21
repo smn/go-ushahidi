@@ -144,29 +144,23 @@ function CustomTester(custom_setup, custom_teardown) {
 
 describe("test_ussd_states_for_session_1", function() {
     it("new users should see the intro state", function () {
-        check_state(null, null, "intro", "^Select a category");
-    });
-    it("reply 'foo' to intro should produce error text", function() {
-        check_state({current_state: "intro"}, "foo", "intro",
-            "^Please select a valid category.[^]"
-        );
-    });
-    it("reply '1' to intro should go to title", function() {
-        check_state({current_state: "intro"}, "1", "report_title",
-            "^What is the title?"
-        );
+        check_state(null, null, "intro", "^What is the title");
     });
     it("reply 'title' to report_title should go to description", function() {
-        check_state({current_state: "report_title"}, "the title",
+        check_state({current_state: "intro"}, "the title",
             "report_description",
             "^What is the description?"
         );
     });
-    it("reply 'description' to report_description should go to location",
+    it("reply 'description' to report_description should go to category",
         function() {
             check_state({current_state: "report_description"}, "the description",
-                "report_location",
-                "^Please type in the address"
+                "report_category",
+                "^Select a category:[^]" +
+                "1. Category 1[^]" +
+                "2. Category 2[^]" +
+                "3. Category 3[^]" +
+                "4. Trusted Reports$"
            );
         });
     it("reply 'address' to report_location should end the session",
